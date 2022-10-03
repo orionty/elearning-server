@@ -12,6 +12,8 @@ const nodemailer = require('nodemailer');
 const { resolve4 } = require('dns');
 const { Server } = require("socket.io");
 
+// This is your test secret API key.
+const stripe = require("stripe")('sk_test_51LoFDZEfLeh0BZ6e2oQDXDGAKPiNrUkEQ8608IDFuKIC7mwFAFLaoXaQXruYSjLBnl4dsJIOsTMHz4zZuFpHCvys00Dscp22gT');
 
 
 const server = http.createServer(app);
@@ -46,6 +48,7 @@ const io = new Server(server, {
   cors: {
     origin: "http://localhost:3000",
     methods: ["GET", "POST"],
+    
   },
 });
 
@@ -85,10 +88,161 @@ app.use("/css", express.static(path.join(__dirname, "public/css")));
 app.use("/js", express.static(path.join(__dirname, "public/js")));
 
 
+// stripe for web development
+app.post("/web-development-payment-intent", async (req, res) => {
+  
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 11500,
+    currency: "usd",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+// stripe for mobile app development
+app.post("/app-development-payment-intent", async (req, res) => {
+
+
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 11800,
+    currency: "usd",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+// stripe for data science
+app.post("/data-science-payment-intent", async (req, res) => {
+  
+
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 12000,
+    currency: "usd",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+// stripe for Artificial Intelligence
+app.post("/artificial-intelligence-payment-intent", async (req, res) => {
+  
+
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 12500,
+    currency: "usd",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+// stripe for Machine Learning
+app.post("/machine-learning-payment-intent", async (req, res) => {
+ 
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 12000,
+    currency: "usd",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+// stripe for Python
+app.post("/python-payment-intent", async (req, res) => {
+
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 9000,
+    currency: "usd",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+// stripe for java
+app.post("/java-payment-intent", async (req, res) => {
+
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 8900,
+    currency: "usd",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+
+// stripe for C++
+app.post("/cplus-payment-intent", async (req, res) => {
+
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 8700,
+    currency: "usd",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+// stripe for graphic designing
+app.post("/graphic-designing-payment-intent", async (req, res) => {
+  
+
+  // Create a PaymentIntent with the order amount and currency
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 7900,
+    currency: "usd",
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
+
+  res.send({
+    clientSecret: paymentIntent.client_secret,
+  });
+});
+
+
 // register web development
 app.post("/register/web/development", (req, res, next) =>{
 
-  var content = `Email: ${req.body.web_email} \n Name : ${req.body.firstName} ${req.body.lastName} \n Phone number: ${req.body.phoneNumber} \n Country: ${req.body.user_country} \n Course: ${req.body.web_course} \n Country: ${req.body.web_country}`
+  var content = `Email: ${req.body.web_email} \n Name : ${req.body.firstName} ${req.body.lastName} \n Phone number: ${req.body.phoneNumber} \n Country: ${req.body.web_country} \n Course: ${req.body.web_course} `
 
   var mail = {
     from: req.body.web_email,
@@ -110,11 +264,213 @@ app.post("/register/web/development", (req, res, next) =>{
   })
 
 })
+// register graphic designing
+app.post("/register/graphic/designing", (req, res, next) =>{
+
+  var content = `Email: ${req.body.design_email} \n Name : ${req.body.firstname} ${req.body.lastname} \n Phone number: ${req.body.phonenumber} \n Country: ${req.body.design_country} \n Course: ${req.body.design_course} `
+
+  var mail = {
+    from: req.body.web_email,
+    to:process.env.EMAIL,
+    subject: 'GRAPHIC DESIGNING',
+    text: content
+  }
+  
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        status: 'fail'
+      })
+    } else {
+      res.json({
+       status: 'success'
+      })
+    }
+  })
+
+})
+// register app development
+app.post("/register/app/development", (req, res, next) =>{
+
+  var content = `Email: ${req.body.app_email} \n Name : ${req.body.AppFirstname} ${req.body.AppLastname} \n Phone number: ${req.body.AppPhonenumber} \n Country: ${req.body.app_country} \n Course: ${req.body.app_course} `
+
+  var mail = {
+    from: req.body.app_email,
+    to:process.env.EMAIL,
+    subject: 'MOBILE APP DEVELOPMENT',
+    text: content
+  }
+  
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        status: 'fail'
+      })
+    } else {
+      res.json({
+       status: 'success'
+      })
+    }
+  })
+
+})
+// register data science
+app.post("/register/data/science", (req, res, next) =>{
+
+  var content = `Email: ${req.body.data_email} \n Name : ${req.body.DataFirstname} ${req.body.DataLastname} \n Phone number: ${req.body.DataPhonenumber} \n Country: ${req.body.data_country} \n Course: ${req.body.data_course} `
+
+  var mail = {
+    from: req.body.data_email,
+    to:process.env.EMAIL,
+    subject: 'DATA SCIENCE',
+    text: content
+  }
+  
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        status: 'fail'
+      })
+    } else {
+      res.json({
+       status: 'success'
+      })
+    }
+  })
+
+})
+// register Cplus
+app.post("/register/Cplus", (req, res, next) =>{
+
+  var content = `Email: ${req.body.cp_email} \n Name : ${req.body.CpFirstname} ${req.body.CpLastname} \n Phone number: ${req.body.CpPhonenumber} \n Country: ${req.body.cp_country} \n Course: ${req.body.cp_course} `
+
+  var mail = {
+    from: req.body.cp_email,
+    to:process.env.EMAIL,
+    subject: 'C++',
+    text: content
+  }
+  
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        status: 'fail'
+      })
+    } else {
+      res.json({
+       status: 'success'
+      })
+    }
+  })
+
+})
+// register Python
+app.post("/register/python", (req, res, next) =>{
+
+  var content = `Email: ${req.body.Python_email} \n Name : ${req.body.PythonFirstName} ${req.body.PythonLastname} \n Phone number: ${req.body.PythonPhoneNumber} \n Country: ${req.body.Python_country} \n Course: ${req.body.Python_course} `
+
+  var mail = {
+    from: req.body.Python_email,
+    to:process.env.EMAIL,
+    subject: 'PYTHON',
+    text: content
+  }
+  
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        status: 'fail'
+      })
+    } else {
+      res.json({
+       status: 'success'
+      })
+    }
+  })
+
+})
+// register Java
+app.post("/register/java", (req, res, next) =>{
+
+  var content = `Email: ${req.body.Java_email} \n Name : ${req.body.JavaFirstName} ${req.body.JavaLastname} \n Phone number: ${req.body.JavaPhoneNumber} \n Country: ${req.body.Java_country} \n Course: ${req.body.Java_course} `
+
+  var mail = {
+    from: req.body.Java_email,
+    to:process.env.EMAIL,
+    subject: 'JAVA',
+    text: content
+  }
+  
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        status: 'fail'
+      })
+    } else {
+      res.json({
+       status: 'success'
+      })
+    }
+  })
+
+})
+// register Machine Learning
+app.post("/register/machine/learning", (req, res, next) =>{
+
+  var content = `Email: ${req.body.ML_email} \n Name : ${req.body.MLFirstName} ${req.body.MLLastname} \n Phone number: ${req.body.MLPhoneNumber} \n Country: ${req.body.ML_country} \n Course: ${req.body.ML_course} `
+
+  var mail = {
+    from: req.body.ML_email,
+    to:process.env.EMAIL,
+    subject: 'MACHINE LEARNING',
+    text: content
+  }
+  
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        status: 'fail'
+      })
+    } else {
+      res.json({
+       status: 'success'
+      })
+    }
+  })
+
+})
+// register Artificial Intelligence
+app.post("/register/artificial/intelligence", (req, res, next) =>{
+
+  var content = `Email: ${req.body.AI_email} \n Name : ${req.body.AIFirstName} ${req.body.AILastname} \n Phone number: ${req.body.AIPhoneNumber} \n Country: ${req.body.AI_country} \n Course: ${req.body.AI_course} `
+
+  var mail = {
+    from: req.body.AI_email,
+    to:process.env.EMAIL,
+    subject: 'ARTIFICIAL INTELLIGENCE',
+    text: content
+  }
+  
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.json({
+        status: 'fail'
+      })
+    } else {
+      res.json({
+       status: 'success'
+      })
+    }
+  })
+
+})
+
+
 // course register
 app.post("/register/course", (req, res, next) =>{
 
   var registered_email = req.body.registered_email
-  var content = `Email: ${registered_email}\n Name : ${req.body.first_name} ${req.body.last_name}\n Phone number: ${ req.body.phone_number}\n Country: ${req.body.user_country} \n Course: ${req.body.course}`
+  var content = `Email: ${registered_email}\n Name : ${req.body.first_name} ${req.body.last_name}\n Phone number: ${ req.body.phone_number}\n Country: ${req.body.registerCountry} \n Course: ${req.body.user_course}`
 
   var mail = {
     from: registered_email,
@@ -169,7 +525,7 @@ app.post("/send/mail", (req, res, next) =>{
 
   const email = req.body.email
   const subject = req.body.subject
-  const message = `Email: ${req.body.email} \n\n Message: ${req.body.message}`
+  const message = `Name: ${req.body.name} \n\n Email: ${req.body.email} \n\n Message: ${req.body.message}`
 
 
   var mail = {
