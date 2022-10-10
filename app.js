@@ -35,9 +35,18 @@ transporter.verify(function(error, success) {
 
 
 const port = process.env.PORT || 3001
+var allowlist = ['https://esurde.com', 'https://elearning-server-app.herokuapp.com']
+var corsOptionsDelegate = function (req, callback) {
+  var corsOptions;
+  if (allowlist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false } // disable CORS for this request
+  }
+  callback(null, corsOptions) // callback expects two parameters: error and options
+}
 
-
-
+app.use(cors())
 
 // Chat app
 
@@ -104,7 +113,7 @@ app.post("/web-development-payment-intent", async (req, res) => {
   });
 });
 // stripe for mobile app development
-app.post("/app-development-payment-intent", async (req, res) => {
+app.post("/app-development-payment-intent",cors(corsOptionsDelegate), async (req, res) => {
 
 
   // Create a PaymentIntent with the order amount and currency
@@ -575,7 +584,7 @@ app.post("/online/tutors", (req, res) =>{
 })
 
 
-app.use(cors())
+
 
 
 
