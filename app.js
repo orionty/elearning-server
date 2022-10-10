@@ -46,7 +46,7 @@ app.use(cors())
 
 const io = new Server(server, {
   cors: {
-    origin: "https://elearning-server-app.herokuapp.com",
+    origin: "https://localhost:3000",
     methods: ["GET", "POST"],
     
   },
