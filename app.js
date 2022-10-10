@@ -13,7 +13,7 @@ const { resolve4 } = require('dns');
 const { Server } = require("socket.io");
 
 
-const stripe = require("stripe")('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');
+const stripe = require("stripe")('pk_live_51LoFDZEfLeh0BZ6eYmpwKW53EEWsjNW9kkw2n6GUyPCGnxlHOb51yOqcs5hxFo1VxAjm0YBUGW0h7qooEA5ZhJ3M00ut0RCr6q');
 
 
 const server = http.createServer(app);
