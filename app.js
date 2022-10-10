@@ -4,14 +4,16 @@ const app = express()
 require('dotenv').config();
 const bodyParser = require('body-parser')
 const pino = require('express-pino-logger')();
+const mysql =require('mysql')
 const session = require("express-session")
 const cors = require('cors')
 const http = require("http");
 const nodemailer = require('nodemailer');
 const { resolve4 } = require('dns');
+const { Server } = require("socket.io");
 
-
-const stripe = require("stripe")('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');
+// This is your test secret API key.
+const stripe = require("stripe")('sk_test_51LoFDZEfLeh0BZ6e2oQDXDGAKPiNrUkEQ8608IDFuKIC7mwFAFLaoXaQXruYSjLBnl4dsJIOsTMHz4zZuFpHCvys00Dscp22gT');
 
 
 const server = http.createServer(app);
@@ -40,6 +42,32 @@ const port = process.env.PORT || 3001
 
 app.use(cors())
 
+// Chat app
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log(`User Connected: ${socket.id}`);
+
+  socket.on("join_room", (data) => {
+    socket.join(data);
+    console.log(`User with ID: ${socket.id} joined room: ${data}`);
+  });
+
+  socket.on("send_message", (data) => {
+    socket.to(data.room).emit("receive_message", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
+});
 
 app.use(
   session({
