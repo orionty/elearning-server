@@ -12,8 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@stripe/react-stripe-js": "^1.9.0",
-    "@stripe/stripe-js": "^1.32.0",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
@@ -25,6 +23,9 @@
     "nodemailer": "^6.7.6",
     "nodemon": "^2.0.18",
     "socket.io": "^4.5.2",
-    "stripe": "^9.11.0"
+    "stripe": "^9.16.0"
+  },
+  "engines": {
+    "node": "16.15.1"
   }
 }

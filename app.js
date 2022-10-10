@@ -87,7 +87,9 @@ app.use("/img", express.static(path.join(__dirname, "public/img")));
 app.use("/css", express.static(path.join(__dirname, "public/css")));
 app.use("/js", express.static(path.join(__dirname, "public/js")));
 
-
+app.get("/", (req, res) => {
+  res.send("Hello API")
+}); 
 // stripe for web development
 app.post("/web-development-payment-intent", async (req, res) => {
   
