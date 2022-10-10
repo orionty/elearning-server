@@ -43,7 +43,8 @@ app.use(cors())
 const io = new Server(server, {
   cors: {
     origin: "https://esurde.com",
-    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
     
   },
 });
