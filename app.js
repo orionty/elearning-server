@@ -12,8 +12,8 @@ const nodemailer = require('nodemailer');
 const { resolve4 } = require('dns');
 const { Server } = require("socket.io");
 
-// This is your test secret API key.
-const stripe = require("stripe")('sk_test_51LoFDZEfLeh0BZ6e2oQDXDGAKPiNrUkEQ8608IDFuKIC7mwFAFLaoXaQXruYSjLBnl4dsJIOsTMHz4zZuFpHCvys00Dscp22gT');
+
+const stripe = require("stripe")('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');
 
 
 const server = http.createServer(app);
@@ -46,7 +46,7 @@ app.use(cors())
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://esurde.com",
     methods: ["GET", "POST"],
     
   },
