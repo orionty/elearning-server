@@ -42,9 +42,8 @@ app.use(cors())
 
 const io = new Server(server, {
   cors: {
-    origin: "https://esurde.com",
-    allowedHeaders: ["my-custom-header"],
-    credentials: true
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
     
   },
 });
