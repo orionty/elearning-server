@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const pino = require('express-pino-logger')();
 const session = require("express-session")
 const cors = require('cors')
+const http = require("http");
 const nodemailer = require('nodemailer');
 const { resolve4 } = require('dns');
 
@@ -13,6 +14,7 @@ const { resolve4 } = require('dns');
 const stripe = require("stripe")('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');
 
 
+const server = http.createServer(app);
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com", 
@@ -37,8 +39,6 @@ const port = process.env.PORT || 3001
 
 
 app.use(cors())
-
-
 
 
 app.use(
