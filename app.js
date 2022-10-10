@@ -11,10 +11,7 @@ const http = require("http");
 const nodemailer = require('nodemailer');
 const { resolve4 } = require('dns');
 const { Server } = require("socket.io");
-
-
-const stripe = require("stripe")('pk_live_51LoFDZEfLeh0BZ6eYmpwKW53EEWsjNW9kkw2n6GUyPCGnxlHOb51yOqcs5hxFo1VxAjm0YBUGW0h7qooEA5ZhJ3M00ut0RCr6q');
-
+const stripe = require("stripe")('sk_test_51LoFDZEfLeh0BZ6e2oQDXDGAKPiNrUkEQ8608IDFuKIC7mwFAFLaoXaQXruYSjLBnl4dsJIOsTMHz4zZuFpHCvys00Dscp22gT');
 
 const server = http.createServer(app);
 
