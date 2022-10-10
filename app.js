@@ -6,15 +6,11 @@ const bodyParser = require('body-parser')
 const pino = require('express-pino-logger')();
 const mysql =require('mysql')
 const session = require("express-session")
-const cors = require('cors')
-const http = require("http");
+const cors = require('cors');
 const nodemailer = require('nodemailer');
 const { resolve4 } = require('dns');
 const { Server } = require("socket.io");
-
-
 const stripe = require("stripe")('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');
-
 
 const server = http.createServer(app);
 
@@ -48,6 +44,7 @@ const io = new Server(server, {
   cors: {
     origin: "https://esurde.com",
     methods: ["GET", "POST"],
+    
   },
 });
 
@@ -581,7 +578,7 @@ app.post("/online/tutors", (req, res) =>{
 
 
 
-  server.listen(port, ()=> console.log('server running on port 3001'))
+  app.listen(port, ()=> console.log('server running on port 3001'))
 
 
 
