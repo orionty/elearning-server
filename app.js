@@ -46,7 +46,7 @@ app.use(cors())
 
 const io = new Server(server, {
   cors: {
-    origin: "https://esurde.com",
+    origin: "https://elearning-server-app.herokuapp.com",
     methods: ["GET", "POST"],
     
   },
