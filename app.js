@@ -6,11 +6,15 @@ const bodyParser = require('body-parser')
 const pino = require('express-pino-logger')();
 const mysql =require('mysql')
 const session = require("express-session")
-const cors = require('cors');
+const cors = require('cors')
+const http = require("http");
 const nodemailer = require('nodemailer');
 const { resolve4 } = require('dns');
 const { Server } = require("socket.io");
+
+// This is your test secret API key.
 const stripe = require("stripe")('sk_test_51LoFDZEfLeh0BZ6e2oQDXDGAKPiNrUkEQ8608IDFuKIC7mwFAFLaoXaQXruYSjLBnl4dsJIOsTMHz4zZuFpHCvys00Dscp22gT');
+
 
 const server = http.createServer(app);
 
@@ -578,7 +582,7 @@ app.post("/online/tutors", (req, res) =>{
 
 
 
-  app.listen(port, ()=> console.log('server running on port 3001'))
+  server.listen(port, ()=> console.log('server running on port 3001'))
 
 
 
