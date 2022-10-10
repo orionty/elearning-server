@@ -37,7 +37,7 @@ transporter.verify(function(error, success) {
 const port = process.env.PORT || 3001
 
 
-app.use(cors())
+
 
 // Chat app
 
@@ -575,7 +575,7 @@ app.post("/online/tutors", (req, res) =>{
 })
 
 
-
+app.use(cors())
 
 
 
