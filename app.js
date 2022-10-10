@@ -6,14 +6,11 @@ const bodyParser = require('body-parser')
 const pino = require('express-pino-logger')();
 const mysql =require('mysql')
 const session = require("express-session")
-const cors = require('cors')
-const http = require("http");
+const cors = require('cors');
 const nodemailer = require('nodemailer');
 const { resolve4 } = require('dns');
-// const { Server } = require("socket.io");
 const stripe = require("stripe")('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');
 
-const server = http.createServer(app);
 
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com", 
@@ -35,45 +32,10 @@ transporter.verify(function(error, success) {
 
 
 const port = process.env.PORT || 3001
-var allowlist = ['https://esurde.com', 'https://elearning-server-app.herokuapp.com']
-var corsOptionsDelegate = function (req, callback) {
-  var corsOptions;
-  if (allowlist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false } // disable CORS for this request
-  }
-  callback(null, corsOptions) // callback expects two parameters: error and options
-}
+
 
 app.use(cors())
 
-// Chat app
-
-// const io = new Server(server, {
-//   cors: {
-//     origin: "http://localhost:3000",
-//     methods: ["GET", "POST"],
-    
-//   },
-// });
-
-// io.on("connection", (socket) => {
-//   console.log(`User Connected: ${socket.id}`);
-
-//   socket.on("join_room", (data) => {
-//     socket.join(data);
-//     console.log(`User with ID: ${socket.id} joined room: ${data}`);
-//   });
-
-//   socket.on("send_message", (data) => {
-//     socket.to(data.room).emit("receive_message", data);
-//   });
-
-//   socket.on("disconnect", () => {
-//     console.log("User Disconnected", socket.id);
-//   });
-// });
 
 app.use(
   session({
@@ -113,7 +75,7 @@ app.post("/web-development-payment-intent", async (req, res) => {
   });
 });
 // stripe for mobile app development
-app.post("/app-development-payment-intent",cors(corsOptionsDelegate), async (req, res) => {
+app.post("/app-development-payment-intent", async (req, res) => {
 
 
   // Create a PaymentIntent with the order amount and currency
@@ -588,7 +550,7 @@ app.post("/online/tutors", (req, res) =>{
 
 
 
-  server.listen(port, ()=> console.log('server running on port 3001'))
+  app.listen(port, ()=> console.log('server running on port 3001'))
 
 
 
