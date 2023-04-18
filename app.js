@@ -12,7 +12,7 @@ const nodemailer = require('nodemailer');
 const { resolve4 } = require('dns');
 const { Server } = require("socket.io");
 
-
+const API_KEY = process.env.API_KEY;
 
 
 const server = http.createServer(app);
@@ -89,6 +89,20 @@ app.use("/js", express.static(path.join(__dirname, "public/js")));
 app.get("/", (req, res) => {
   res.send("Hello API")
 }); 
+
+// NEWS API
+app.get('/news/latest', async (req, res) => {
+  try {
+    const response = await axios.get(
+      `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`
+    );
+    res.json(response.data.articles);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'An error occurred while fetching news data' });
+  }
+});
+
 // stripe for web development
 app.post("/web-development-payment-intent", async (req, res) => {
   
